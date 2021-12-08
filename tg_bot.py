@@ -282,22 +282,6 @@ def ask_price_tp(update, context):
     sizes = context.user_data[3]
     size = validate_size(update.message.text, sizes)
     # если введенное значение не корректно
-    if size is None:
-        update.message.reply_text(
-            text='Пожалуйста введите корректный размер или нажмите *"Отмена"*',
-            reply_markup=get_keyboard_cancel("Отмена"),
-            parse_mode=ParseMode.MARKDOWN,
-        )
-        return TP3
-    # если этого размера нет
-    if not sizes[size]:
-        update.message.reply_text(
-            text='Размера нет в продаже. Пожалуйста введите корректный размер или '
-                 'можете отследить появление данного размера через *"Главное меню"*',
-            reply_markup=get_keyboard_cancel("Главное меню"),
-            parse_mode=ParseMode.MARKDOWN,
-        )
-        return TP3
     context.user_data[4] = size
     update.message.reply_text(
         text="*Введите цену*",
