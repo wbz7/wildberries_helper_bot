@@ -282,6 +282,22 @@ def ask_price_tp(update, context):
     sizes = context.user_data[3]
     size = validate_size(update.message.text, sizes)
     # если введенное значение не корректно
+    if size is None:
+        update.message.reply_text(
+            text='Пожалуйста введите корректный размер или нажмите *"Отмена"*',
+            reply_markup=get_keyboard_cancel("Отмена"),
+            parse_mode=ParseMode.MARKDOWN,
+        )
+        return TP3
+    # если этого размера нет
+    if not sizes[size]:
+        update.message.reply_text(
+            text='Размера нет в продаже. Пожалуйста введите корректный размер или '
+                 'можете отследить появление данного размера через *"Главное меню"*',
+            reply_markup=get_keyboard_cancel("Главное меню"),
+            parse_mode=ParseMode.MARKDOWN,
+        )
+        return TP3
     context.user_data[4] = size
     update.message.reply_text(
         text="*Введите цену*",
@@ -575,8 +591,8 @@ def main():
     dp = updater.dispatcher
     jq = updater.job_queue
     # запуск проверки товаров
-    jq.run_repeating(handle_daily_price_changes, 1200)
-    jq.run_repeating(handle_daily_goods_appearances, 1200)
+    jq.run_repeating(handle_daily_price_changes, 3600)
+    jq.run_repeating(handle_daily_goods_appearances, 3600)
 
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
