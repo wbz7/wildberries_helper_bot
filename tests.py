@@ -22,6 +22,7 @@ class ValidatorsTestCase(TestCase):
     def test_validate_size(self):
         sizes = parser.get_sizes('29477635')
         self.assertEqual(validate_size('xs', sizes), 'xs')
+        self.assertEqual(validate_size('None', sizes), None)
         self.assertEqual(validate_size('3xl', sizes), None)
         self.assertEqual(validate_size('1', sizes), None)
 
