@@ -51,9 +51,9 @@ def get_price(article):
 
 def get_sizes(article):
     soup = get_data(get_html(get_url(article)))
-    block_sizes = soup.select('li.sizes-list__item')
+    block_sizes = soup.select('Item_SizeTable')
     if not block_sizes:
         logger.error('no block_sizes')
         return
-    sizes = utils.get_thing_sizes(block_sizes)
+    sizes = utils.get_thing_sizes(Item_SizeTable)
     return sizes
