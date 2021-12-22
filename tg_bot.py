@@ -591,8 +591,8 @@ def main():
     dp = updater.dispatcher
     jq = updater.job_queue
     # запуск проверки товаров
-    jq.run_repeating(handle_daily_price_changes, 360)
-    jq.run_repeating(handle_daily_goods_appearances, 360)
+    jq.run_repeating(handle_daily_price_changes, 1200)
+    jq.run_repeating(handle_daily_goods_appearances, 1200)
 
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
